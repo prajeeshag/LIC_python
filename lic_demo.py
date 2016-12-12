@@ -28,24 +28,31 @@ for (x,y) in vortices:
 
 for x in xrange(size):
     for y in xrange(size):
-        vectors[x,y,1] = -1.*(x - size/2)
-        vectors[x,y,0] = y - size/2
+        vectors[x,y,1] = y - size/2
+        vectors[x,y,0] = -(x - size/2)
         
 print(np.amin(vectors),np.amax(vectors))
 
-texture = np.random.rand(size,size).astype(np.float32)
-textflag = np.ones((size,size),dtype=bool)
-dimPixel = 3
-for x in xrange(size-dimPixel):
-    for y in xrange(size-dimPixel):
-        if textflag[x,y]:
-            if texture[x,y] > 0.997:
-                for k in xrange(dimPixel):
-                    for j in xrange(dimPixel):
-                        texture[x+k,y+j]=1.0
-                        textflag[x+k,y+j]=False
-            else:
-                texture[x,y]=0.0
+#texture = np.random.rand(size,size).astype(np.float32)
+texture = np.zeros((size,size),dtype=np.float32)
+# texture[::5,size//2]=1.0
+texture[::30,::30]=1.0
+texture[size//2,:]=0.0
+texture[:,size//2]=0.0
+
+# textflag = np.ones((size,size),dtype=bool)
+# dimPixel = 3
+# for x in xrange(size-dimPixel):
+#     for y in xrange(size-dimPixel):
+#         if textflag[x,y]:
+#             if texture[x,y] > 0.997:
+#                 for k in xrange(dimPixel):
+#                     for j in xrange(dimPixel):
+#                         texture[x+k,y+j]=1.0
+#                         textflag[x+k,y+j]=False
+#             else:
+#                 texture[x,y]=0.0
+# texture[np.where(textflag)] = 0.0
 
 plt.bone()
 frame=0
@@ -66,7 +73,7 @@ if video:
         plt.savefig("flow-%04d.png"%frame,dpi=dpi)
         frame += 1
 else:
-    kernellen=51
+    kernellen=31
     kernel = np.sin(np.arange(kernellen)*np.pi/kernellen)
     kernel = kernel.astype(np.float32)
 

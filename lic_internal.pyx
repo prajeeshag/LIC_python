@@ -68,9 +68,8 @@ def line_integral_convolution(
             y = i
             fx = 0.5
             fy = 0.5
-            
-            k = kernellen//2
-            #print i, j, k, x, y
+            k = kernellen//2 * 0
+            #Print i, j, k, x, y
             result[i,j] += kernel[k]*texture[x,y]
             while k<kernellen-1:
                 _advance(vectors[y,x,0],vectors[y,x,1],
@@ -79,17 +78,17 @@ def line_integral_convolution(
                 #print i, j, k, x, y
                 result[i,j] += kernel[k]*texture[x,y]
 
-            x = j
-            y = i
-            fx = 0.5
-            fy = 0.5
+            # x = j
+            # y = i
+            # fx = 0.5
+            # fy = 0.5
             
-            while k>0:
-                _advance(-vectors[y,x,0],-vectors[y,x,1],
-                        &x, &y, &fx, &fy, w, h)
-                k-=1
-                #print i, j, k, x, y
-                result[i,j] += kernel[k]*texture[x,y]
+            # while k>0:
+            #     _advance(-vectors[y,x,0],-vectors[y,x,1],
+            #             &x, &y, &fx, &fy, w, h)
+            #     k-=1
+            #     #print i, j, k, x, y
+            #     result[i,j] += kernel[k]*texture[x,y]
                     
     return result
 
